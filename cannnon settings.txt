@@ -1,0 +1,8 @@
+hintergrundfarbe = "#DDF"	###Hintergrundfarbe
+suddendeath = 0			###Gift
+height = screenheight		###in Pixeln
+width = screenwidth		###in Pixeln
+ladekraft = 100			###maximale Ladezahl+1
+sound = 1			###Benutzung der Sounddateien
+schneeintervall = 0		###schnee/sekunde
+fallschirmintervall = 80	###Fallschirm nach ... Sekunden

@@ -1,0 +1,42 @@
+Mit diesem Editor kann man Karten mit eigenen Schuessen fuer das Spiel Cannon erstellen oder eine Karte erstellen.
+Die Karte gestalten sie, indem sie auf das leere Fenster klicken und den Mauscursor darueber ziehen.
+Es wird in Hoehe ihres Cursors ein Haufen errichtet werden.
+Entstehen nur Balken und faellt er nicht in sich zusammen, so klicken sie bitte auf den Knopf "Start".
+Er loest die Untergrundfunktion des Spieles Cannon aus.
+Diese berechnet die Berge im voraus und es muss nicht am Spielanfang geschehen.
+Die Pinselgroesse kann man mit klick auf das o veraendern.
+Ausserdem koennen sie hier die Ausmasse ihrer (!) Karte angeben.
+
+Das Fenster mit dem Schusseditor enthaelt die liste aller bis jetzt erstellten Standartschuesse.
+Moechten sie einen eigenen Schuss erstellen oder einen loeschen,so geht das hier.
+Folgendes ist dabei zu beachten:
+- verwenden sie keine Umlaute und Sonderzeichen, das kann zu Problemen fuehren.
+- alle Schuesse mit >::< im Kaufmenutext werden nicht zum Kaufen angeboten
+- die Startzahl gibt an, mit wie vielen dieser Waffen jeder Spieler in der ersten Runde startet
+- die Farbe kann hexadezimal definiert werden (#FFF,#FF0000,#000000FFF) oder in Englisch (black,red,blue)
+- die Groesse entspricht ca. 1/2 Pixel
+- als Art oder Form stehen zur Auswahl:
+    - >Ball<
+    - >Rechteck<
+    - >Rakete<
+    - >Dreieck<
+    - >Schrot<
+    - >Stern<
+- bei der Sprengtiefe wird ein n facher Krater von der Groesse der Explosion gerissen (-1 entspricht einem Berg)
+- der Schaden sollte 30 nicht uebersteigen (eh tot)
+- die Sprengweite sollte nicht zu gross sein, da sonst bald nichts mehr von der Karte uebrig ist
+- das Zeichen fuer den Schuss sollte aus max. 2 grossen (z.B.:M) bzw. 4 kleinen Zeichen (z.B.:!) bestehen und von Hochkommas eingefasst sein
+- mehr Zeichen sind in Unicode.py ersichtlich.
+- zur Anmerkung:
+    - >E< beeutet Explosion
+    - >H< heilt
+    - >S< erzeugt ein Schutzschild
+    - >K(nummer,...)< setzt bei Aufschlag die Schuesse mit der Nummer nummer frei
+    - >T(zeit)K(nummer,...)< setzt nach ablauf der Zeit zeit (in s) die Schuesse mit der Nummer nummer frei
+    - >D(zeit)K(nummer,...)< setzt nach ablauf der Zeit zeit (in s) die Schuesse mit der Nummer nummer frei und zerstoert den Schuss
+    - >BB< setzt den Bunker an die Aufschlagstelle
+    - >G(menge)< setzt beim Aufschlag eine bestimmte Menge Gift menge frei, z.B.:15
+    - >g(n,t)< setzt den Schuss der n-fachen Gravitation aus und zerstoert ihn nach t Sekunden
+    - >st(z,d)< z - Anzahl der Zacken, d - Drehung (nur wenn der Schuss ein Stern ist)
+    es kann alles miteinander in einen Schuss gepackt werden doch bitte nicht doppelt
+    >H< und >S< haben nur einen Sinn, wenn kein Schuss erzeugt wird (keine Art angeben)

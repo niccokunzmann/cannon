@@ -1,0 +1,251 @@
+def lankaufensch(*k):
+    n=eval(schusslistlan.get(schusslistlan.curselection())[:4])
+def lankaufenframef(*k):
+    warteframe.grid_forget()
+    lankaufenframef.grid(row=1,cloumn=1)
+def lanschussconf(*k):
+    thread.start_new(lanschussconf2,(1,))
+def lanschussconf2(*k):
+    time.sleep(0.1)
+    try:
+        n=eval(schusslistlan.get(schusslistlan.curselection())[:4])
+    except:n=0
+    langeldlabel.config(text="Guthaben: "+str(bupos[spielernummer-1][5]))
+    lanzeichenlabel.config(text=str(bupos[spielernummer-1][4][n])+" x  "+str(schussart[n][1]))
+    lanpreislabel.config(text=("Preis: "+str(schussart[n][8][0])))
+    try:
+        n=eval(schusslist.get(schusslist.curselection())[:4])
+    except:n=0
+                         #bupos : #x,y,winkel,leben,schussanz,geld,unendlich,ABO
+def allessenden():
+    global bupos,relief,shot,reliefg,sendenvar
+    sendenvar+=";(bupos,relief,shot,reliefg,sendenvar)="+\
+                str((bupos,relief,shot,reliefg,sendenvar))+\
+                ";clientstart()"
+def empfangen2(client):
+    global ende
+    ende=0
+    try:
+        while ende==0:
+             exec(client[0].recv(100000))
+    except:
+        tkMessageBox.showerror(title="ERROR",message=("Connection reset by peer "+str(client[1][0])),parent=root)
+def empfangen(*k):
+    for i in clients:
+        thread.start_new(empfangen2,(i,))
+def sendendata(data):
+    global sendenvar,senden
+    if data=="":
+        data=sendenvar
+    for i in senden:
+        i.send(data)
+def beitreten(*k):
+    lanframe.grid_forget()
+    beitrframe.grid(row=1,column=1)
+def beitreten2(*k):
+    global host,senden,emp,clients
+    senden=socket.socket()
+    try:
+        senden.connect((ipentry.get(),1234))
+    except:
+        tkMessageBox.showerror(title="ERROR",message="Connection refused",parent=root)
+        return
+    emp=socket.socket()
+    emp.bind(("",1234))
+    emp.listen(1)
+    clients.append(emp.accept())
+    beitrframe.grid_forget()
+    thread.start_new(empfangen,(0,))
+def clientstart(*k):
+    global width,bupos,height,relief,spanz,reliefg,t,schussart,relief2,reliefgnr
+    for i in range(spanz):
+        buposfconf(i)
+    for i in range(width+1):
+        if relief2[i]!=relief[i]:canvas_coords(i+1,i,height,i,relief[i])
+        if reliefg2[i]!=reliefg[i]:canvas_coords(reliefgnr+i+1,i,height,i,relief[i])
+    relief2=relief[:]
+    reliefg2=reliefg[:]
+    for zz in range(len(shot)):
+        if str(shot[zz]) in dels:continue
+        i=shot[zz]
+        (x,y)=(shot[zz][5][0],shot[zz][5][1])
+        shot[zz][5]=[x,y,shot[zz][5][0],shot[zz][5][1]]
+        if schussart[i[6]][6][0] in ("Ball","Rechteck","Luftschiff","Schrot"):canvas_coords(i[0],x+schussart[i[6]][6][1]/2,y+schussart[i[6]][6][1]/2,x-schussart[i[6]][6][1]/2,y-schussart[i[6]][6][1]/2)
+        elif schussart[i[6]][6][0] in ("Linie",):
+            a2=shot[zz][5][0]-x
+            b2=shot[zz][5][1]-y
+            gr=schussart[i[6]][6][1]
+            try:
+                n=gr/sqrt(a2**2+b2**2)
+            except:n=0
+            canvas_coords(i[0],x+a2*n,y+b2*n,x,y)
+        elif schussart[i[6]][6][0] in ("Dreieck",):
+            a2=-shot[zz][5][0]+x
+            b2=-shot[zz][5][1]+y
+            gr=schussart[i[6]][6][1]
+            try:
+                n2=gr/sqrt(a2**2+b2**2)
+            except:n2=0
+            a3=-b2/3
+            b3=a2/3
+            canvas_coords(i[0],x+a2*n2,y+b2*n2,x-a3*n2,y-b3*n2,x+a3*n2,y+b3*n2)
+        elif schussart[i[6]][6][0] in ("Rakete",):
+            a2=-shot[zz][5][0]+x
+            b2=-shot[zz][5][1]+y
+            gr=schussart[i[6]][6][1]
+            try:
+                n2=gr/sqrt(a2**2+b2**2)
+            except:n2=0
+            a3=-b2/3
+            b3=a2/3
+            try:
+                n3=gr*2.0/3/sqrt(a2**2+b2**2)
+            except:n3=0
+            n4=n3/2
+            canvas_coords(i[0],x+a2*n2,y+b2*n2,\
+                          x-a3*n3+a2*n3,y-b3*n3+b2*n3,\
+                          x-a3*n4+a2*n4,y-b3*n4+b2*n4,\
+                          x-a3*n2,y-b3*n2,\
+                          x+a3*n2,y+b3*n2,\
+                          x+a3*n4+a2*n4,y+b3*n4+b2*n4,\
+                          x+a3*n3+a2*n3,y+b3*n3+b2*n3)
+def clientlos(*k):
+    for i in ["3","2","1","LOS!"]:
+        label=Label(top,text=str(i),font=("Arial",20,"bold"),bg="#DDF")
+        label.grid(row=1,column=1)
+##        print
+        time.sleep(1)
+        label.grid_forget()
+    top.place_forget()
+def lanspanzf(*k):
+#    thread.start_new(lanspanzf2,(1,))
+#def lanspanzf2(*k):
+    entryspanzf("lan")
+    global spanz,clients,optionvar,senden,spielernummer
+    if spanz==0:return
+    warteframe.grid(row=1,column=1)
+    emp=socket.socket()
+    emp.bind(("",1234))
+    emp.listen(1)
+    wartelist.insert(0,socket.gethostbyname(socket.gethostname())+" - host")
+    print 
+    for i in range(spanz-1):
+        clients.append(emp.accept())
+        wartelist.insert(0,clients[-1][1][0])
+        time.sleep(0.5)
+        senden.append(socket.socket())
+        print
+        while 1:
+            try:
+                senden[-1].connect((clients[-1][1][0],1234))
+                break
+            except :tkMessageBox.showerror(title="ERROR",message="Connection refused",parent=root)
+        sendendata("""
+warteframe.grid(row=1,column=1)
+wartelist.delete(0,END)
+wartelist.insert(0,\""""+socket.gethostbyname(socket.gethostname())+"""\"+" - host")
+for i in """+str([i[1][0] for i in clients])+""":wartelist.insert(0,i)
+""")
+    optionvar+="lanhost"
+    warteframe.grid_forget()
+    empfangen(0)
+    frametop.grid(row=1,column=2)
+    spielernummer=1
+    sendendata("""
+(height,width,spanz,schussart)="""\
++str((height,width,spanz,schussart))+"""
+for i in range(0,width+1):
+    canvas.create_line(i,height,i,height-2,fill="gray66")
+for i in range("""+str(maxspieleranz)+"""):
+    bunker(i)
+global reliefgnr
+reliefgnr=canvas.find_all()[-1]
+for i in range(0,width+1):
+    canvas.create_line(i,height-10,i,height-10,fill="green2")
+global spielernummer
+spielernummer=1
+for i in """+str([i[1][0] for i in clients])+""":
+    spielernummer+=1
+    if socket.gethostbyname(socket.gethostname())==i:break
+""")
+def hosten(*k):
+    lanframe.grid_forget()
+    spieleranzahlframe.grid(row=1,column=2)
+    entryspanz.unbind("<KeyPress-Return>")
+    entryspanz.bind("<KeyPress-Return>",lanspanzf)
+def mehrspielerlanw(*k):
+    lanframe.grid_forget()
+    hauptmenu.grid(row=1,column=1)
+def mehrspielerlan(*k):
+    hauptmenu.grid_forget()
+    lanframe.grid(row=1,column=1)
+
+
+
+
+
+
+
+
+
+
+
+
+#LAN
+lanframe=Frame(top,bg=hintergrundfarbe)
+lanlabel=Label(lanframe,bg=hintergrundfarbe,text="""Cannon\nMehrspieler Lan""",font=("Arial",15,"bold"))
+lanlabel.pack()
+lanbutton1=Button(lanframe,text="Hosten",width=20)
+lanbutton1.pack()
+lanbutton1.bind("<1>",hosten)
+lanbutton2=Button(lanframe,text="Beitreten",width=20)
+lanbutton2.pack()
+lanbutton2.bind("<1>",beitreten)
+lanbutton3=Button(lanframe,text="Hauptmenu",width=20)
+lanbutton3.bind("<1>",mehrspielerlanw)
+lanbutton3.pack()
+#host
+iplabel1=Label(lanframe,bg=hintergrundfarbe,text="Ihre IP: "+socket.gethostbyname(socket.gethostname()))
+iplabel1.pack()
+warteframe=Frame(top,bg=hintergrundfarbe)
+label=Label(warteframe,bg=hintergrundfarbe,text="Warte auf andere Spieler...\nIhre IP: "+socket.gethostbyname(socket.gethostname()),font=("Arial",13,"bold")).pack()
+wartescr=Scrollbar(warteframe)
+wartescr.pack(fill=Y,side=RIGHT)
+wartelist=Listbox(warteframe,width=45,yscrollcommand=scr.set)
+wartelist.pack(fill=Y,side=LEFT)
+wartescr.config(command=wartelist.yview)
+#client
+beitrframe=Frame(top,bg=hintergrundfarbe)
+label=Label(beitrframe,bg=hintergrundfarbe,text="Bitte geben sie die Ziel-IP ein:\nIhre IP: "+socket.gethostbyname(socket.gethostname()),font=("Arial",13,"bold")).pack()
+ipentry=Entry(beitrframe)
+ipentry.bind("<KeyPress-Return>",beitreten2)
+ipentry.pack()
+#mehrspielerkaufen
+lankaufenframe=Frame(top,bg=hintergrundfarbe)
+listkaufframelan=Frame(lankaufenframe,bg=hintergrundfarbe)
+listkaufframelan.grid(row=1,column=1,rowspan=9)
+scrklan=Scrollbar(listkaufframelan)
+scrklan.pack(fill=Y,side=RIGHT)
+schusslistlan=Listbox(listkaufframelan,width=45,bg=hintergrundfarbe,relief=RIDGE,yscrollcommand=scrklan.set)
+schusslistlan.pack(fill=Y,side=LEFT)
+schusslistlan.bind("<1>",lanschussconf)
+scrklan.config(command=schusslistlan.yview)
+for i in schussart:
+    if "::" in i[8][1]:continue
+    o=str(i[0])
+    o=o.center(4)
+    schusslistlan.insert(END,o+" "+i[8][1])
+schusslistlan.focus_set()
+langeldlabel=Label(lankaufenframe,text="",font=("Arial",20,"bold"),width=20,bg=hintergrundfarbe)
+langeldlabel.grid(row=2,column=2)
+lanzeichenlabel=Label(lankaufenframe,text="",font=("Arial",17,"bold"),width=20,bg=hintergrundfarbe)
+lanzeichenlabel.grid(row=3,column=2)
+lanpreislabel=Label(lankaufenframe,text="",font=("Arial",15,"bold"),width=20,bg=hintergrundfarbe)
+lanpreislabel.grid(row=4,column=2)
+lankaufbutton=Button(lankaufenframe,text="Kaufen",width=20)
+lankaufbutton.grid(row=5,column=2)
+#lankaufbutton.bind("<1>",)
+lanweiterbutton=Button(lankaufenframe,text=u">>Zum Spiel>>",width=20)
+lanweiterbutton.grid(row=6,column=2)
+#lanweiterbutton.bind("<1>",)
+

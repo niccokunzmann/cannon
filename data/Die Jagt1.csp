@@ -1,0 +1,14 @@
+global default,fi,maxwinkel,minwinkel,schussart,spanz,bupos
+default.append("global fi;fi="+str(fi))
+fi=[0,0]
+default.append("global schussart;schussart="+str(schussart))
+default.append("global maxwinkel,minwinkel;(maxwinkel,minwinkel)="+str((maxwinkel,minwinkel)))
+schussart=[(i[:5]+[0]+i[6:]) for i in schussart]
+maxwinkel=270
+minwinkel=-90
+schussart.append([len(schussart),"{J}",30,"BB,E",0,0,["Rechteck",10,"cyan"],0,[0,"Jagtwaffe"]])
+for i in range(spanz):
+	bupos[i][6]+=2**(len(schussart)-1)
+	bupos[i][7]+=[0]
+	bupos[i][4]+=[10]
+#x,y,winkel,leben,schussanz,geld,unendlich,ABO

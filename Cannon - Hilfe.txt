@@ -1,0 +1,34 @@
+19:15 30.12.2006
+Cannon ist ein Spiel fuer die ganze Familie (solange Sie nicht 5 Spieler uebersteigt).
+
+	Cannon Mehrspieler
+Man kann es im Mehrspielermodus auf einem Computer spielen. Maximal zu fuenft oder tastaturbedingt zu sechst.
+Ueber die Tastaturbelegung kann man sich auf dem gleichnamigen Hauptmenubutton informieren.
+Voreingestellt ist Laptoptastatur ohne Ziffernblock.
+Falls das Spiel abstuerzen sollte (unwahrscheinlich) kann man es immer mit Doppel - Escape bzw. mit dem Taskmanager sauber entfernen.
+Sobald Sie >Mehrspieler< gewaehlt haben, erscheint ein Menu zur Abfrage der Spieleranzahl.
+Dort geben Sie die Spieleranzahl ein und bestaetigen mit >ENTER<.
+Im naechsten Menu waehlen Sie die Karte, die Sie spielen wollen (mit Doppelklick), Sie lassen Zufaellig eine Karte waehlen oder spielen eine selbst erstellte.
+Sie gelangen in das Kaufmenu, wo jeder sich Spieler der Reihe nach mit den unterschiedlichsten Waffen ausruesten kann.
+Bitte merken Sie sich die Kuerzel, die jeder Schuss besitzt, den Sie kaufen! (Standartschuss - >o<,Normale Rakete - >R<, ... )
+Jeder besitzt eine unendliche Anzahl an Standartschuessen (durch Haken gekennzeichnet).
+Die maximale Anzahl an Munition einer Art ist 10.
+Munition sowie Guthaben koennen fuer folgende Runden aufgehoben werden.
+Fuer jedes Abo eines Schusses, das man besitzt, kommt jede Runde ein Schuss dieser Art dazu. 
+Sobald jeder Spieler dran war, beginnt nach dem Countdown das Spiel.
+Ziel des Spieles ist es die anderen Bunker zu vernichten um am Ende als letzter zu existieren.
+Das kann mit den unterschiedlichsten Mitteln bewerkstelligt werden.
+Pause mit einmaligem >Escape<.
+
+	Cannon Waffeneditor
+Der Wafffeneditor enthaelt eine seperate Hilfe.
+
+	Spiel Laden
+Ein Spiel zu Laden ist im Hauptmenu moeglich, kann aber auch jederzeit im Spiel mit >Strg-Alt-o< erfolgen.
+Ein Spiel Speichert man mit >Strg-Alt-s< (vielleicht auch moeglich wenn abgestuerzt).
+
+Sollten die Bunker nicht mehr reagieren, so klicken sie bitte auf das Spiel und versuchen es erneut.
+Ist ein Spiel durch einen Fehler unterbrochen, druecken sie Doppelt >F2< um es wieder aufzunehmen.
+Gelingt das nicht, Speichern Neustarten Laden.
+Gelingt auch das nicht,geht es nicht.
+Ein minimiertes Spiel kann nicht wieder aufgenommen werden.

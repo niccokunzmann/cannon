@@ -1,0 +1,5 @@
+global spanz,bupos,schussart,sonstiges
+for i in range(spanz):
+	bupos[i][6]-=2**(len(schussart)-1)
+	bupos[i][7]=bupos[i][7][:-1]
+	bupos[i][4]=bupos[i][4][:-1]
