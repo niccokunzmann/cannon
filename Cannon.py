@@ -768,7 +768,7 @@ def G(n):
 def gift(k,x,y,n):
     global reliefg
     r=eval(k)
-    for i in range(x-r/2,x+r/2):
+    for i in range(int(x-r/2),int(x+r/2)):
         reliefg[int(i%width)]+=int(sqrt(r**2-(i-x)**2))
         canvas_coords(reliefgnr+i%width+1,i%width,relief[i%width],i%width,relief[i%width]-reliefg[i%width])
 def Laden(k):
